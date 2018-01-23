@@ -1,4 +1,4 @@
-.preview {
+.gz-mark-layer {
   display: none;
   position: fixed;
   width: 100%;
@@ -8,7 +8,7 @@
   background-color: rgba(7, 17, 27, 0.5);
   z-index: 99999;
 }
-.preview .alert {
+.gz-mark-layer .gz-alert {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -20,16 +20,16 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-.preview .alert i {
+.gz-mark-layer .gz-alert i {
   font-size: 90px;
 }
-.preview .alert i.right {
+.gz-mark-layer .gz-alert i.right {
   color: green;
 }
-.preview .alert i.false {
+.gz-mark-layer .gz-alert i.false {
   color: red;
 }
-.preview .alert p {
+.gz-mark-layer .gz-alert p {
   font-size: 30px;
   font-weight: 200;
   line-height: 50px;

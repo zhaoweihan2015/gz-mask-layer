@@ -9,20 +9,25 @@
  * @returns 
  */
 function previewInfo(o) {
-    var $tip = $('<div class="preview">' +
-            '<div class="alert">' +
+    var $tip = $('<div class="gz-mark-layer">' +
+            '<div class="gz-alert">' +
             '</div>' +
             '</div>'),
-        $word = $('<p>' + o.word + '</p>')
+        $word = $('<p>' + o.word + '</p>'),
+        fadeTime = 1000
 
     //callback
     if (o.hasOwnProperty("cb")) {
         o.cb()
     }
+
+    if (o.hasOwnProperty('time')) {
+        fadeTime = o.time
+    }
     return {
         enter: function () {
             var $info = $('<i class="fa fa-check-circle-o right"></i>')
-            $('body').append($tip.find('.alert').append($info, $word).parent().fadeIn('normal', function () {
+            $('body').append($tip.find('.gz-alert').append($info, $word).parent().fadeIn('normal', function () {
                 var _this = $(this)
                 setTimeout(function () {
                     if (o.hasOwnProperty('url')) {
@@ -35,19 +40,19 @@ function previewInfo(o) {
                             $(this).remove()
                         })
                     }
-                }, 1000)
+                }, fadeTime)
             }))
 
         },
         error: function () {
             var $info = $('<i class="fa fa-exclamation-circle false"></i>')
-            $('body').append($tip.find('.alert').append($info, $word).parent().fadeIn('normal', function () {
+            $('body').append($tip.find('.gz-alert').append($info, $word).parent().fadeIn('normal', function () {
                 var _this = $(this)
                 setTimeout(function () {
                     _this.fadeOut('normal', function () {
                         $(this).remove()
                     })
-                }, 1000)
+                }, fadeTime)
             }))
         }
     }
