@@ -22,7 +22,7 @@ function previewInfo(o) {
     return {
         enter: function () {
             var $info = $('<i class="fa fa-check-circle-o right"></i>')
-            $('body').append($tip.find('.alert').append($info, $word).parent().fadeIn(500, function () {
+            $('body').append($tip.find('.alert').append($info, $word).parent().fadeIn('normal', function () {
                 var _this = $(this)
                 setTimeout(function () {
                     if (o.hasOwnProperty('url')) {
