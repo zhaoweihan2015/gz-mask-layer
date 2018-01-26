@@ -11,21 +11,22 @@
  */
 
 $.extend({
-    gzMaskLayer: function previewInfo(o) {
+    gzMaskLayer: function gzMaskLayer(o) {
         var $tip = $('<div class="gz-mark-layer">' +
             '<div class="gz-alert">' +
             '</div>' +
             '</div>'),
-            $word = $('<p>' + o.word + '</p>'),
-            fadeTime = 2000
+            _word = '<p>' + o.word + '</p>',
+            _button = '<button type="button">确定</button>',
+            fadeTime = o.time ? o.time : 2000
 
-        //callback
+
         if (o.hasOwnProperty("cb")) {
             o.cb()
         }
 
-        if (o.hasOwnProperty('time')) {
-            fadeTime = o.time
+        if (o.hasOwnProperty("button") && o.button) {
+            _word += _button
         }
 
         function addPreview(type, cb) {
@@ -35,12 +36,19 @@ $.extend({
             } else if (type == 'false') {
                 $info.addClass("fa-exclamation-circle")
             }
-            $('body').append($tip.find('.gz-alert').append($info, $word).parent().fadeIn('normal', function () {
-                var timer = setTimeout((function () {
-                    cb.call(this, o)
-                }).bind(this), fadeTime)
-                
-                $tip.on('click', function () { 
+            $('body').append($tip.find('.gz-alert').append($info, $(_word)).parent().fadeIn('normal', function () {
+                var timer
+                if (!o.button) {
+                    timer = setTimeout((function () {
+                        cb.call(this, o)
+                    }).bind(this), fadeTime)
+                }
+
+                $tip.on('click', function (e) {
+                    var e = e || event
+                    if (o.button && !Boolean($(e.target).hasClass("gz-mark-layer") || e.target.tagName == 'BUTTON')) {
+                        return false
+                    }
                     clearTimeout(timer)
                     cb.call(this, o)
                 })

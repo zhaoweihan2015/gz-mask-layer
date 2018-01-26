@@ -34,3 +34,12 @@
   font-weight: 200;
   line-height: 50px;
 }
+.gz-mark-layer .gz-alert button {
+  line-height: 40px;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: 200;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.76078431) inset, -1px -1px 3px rgba(0, 0, 0, 0.1607);
+}

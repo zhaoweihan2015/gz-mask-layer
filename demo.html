@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./css/font-awesome.min.css">
-    <link rel="stylesheet" href="./css/jquery.markLayer.min.css">
+    <link rel="stylesheet" href="./css/jquery.markLayer.css">
 </head>
 <body>
     <h2>成功</h2>
@@ -14,7 +14,7 @@
     <h2>失败</h2>
     <button class="button" onclick="Error()">ERROR</button>
     <script src="./js/jquery-1.9.1.min.js"></script>
-    <script src="./js/jquery.markLayer.min.js"></script>
+    <script src="./js/jquery.markLayer.js"></script>
     <script>
     function Success(){
         $.gzMaskLayer({
@@ -25,7 +25,8 @@
             //url:'https://www.baidu.com',//成功后跳转的地址
             lastCb:function(){
                 console.log('在弹窗之后')
-            }
+            },
+            button:true
         }).enter()
     }
 
