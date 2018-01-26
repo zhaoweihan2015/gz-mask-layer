@@ -20,7 +20,7 @@
 #### 1. `enter()` 成功时使用的方法
 #### 2. `error()` 失败时使用的方法
 ```javascript 
-$.previewInfo({
+$.gzMaskLayer({
             word:"成功文字",
             cb:function(){
                 console.log('在弹窗之前')
