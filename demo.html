@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,52 +9,62 @@
     <link rel="stylesheet" href="./css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/jquery.markLayer.css">
 </head>
+
 <body>
     <h2>成功</h2>
     <button class="button" onclick="Success()">SUCCESS</button>
     <h2>失败</h2>
     <button class="button" onclick="Error()">ERROR</button>
+    <h2>确定按钮</h2>
+    <button class="button" onclick="Button()">BUTTON</button>
     <h2>提出疑问</h2>
     <button class="button" onclick="Ask()">ASK</button>
     <script src="./js/jquery-1.9.1.min.js"></script>
     <script src="./js/jquery.markLayer.js"></script>
     <script>
-    function Success(){
-        $.gzMaskLayer({
-            word:"成功文字",
-            cb:function(){
-                console.log('在弹窗之前')
-            },
-            //url:'https://www.baidu.com',//成功后跳转的地址
-            lastCb:function(){
-                console.log('在弹窗之后')
-            }
-        }).enter()
-    }
+        function Success() {
+            $.gzMaskLayer({
+                word: "成功文字",
+                cb: function () {
+                    console.log('在弹窗之前')
+                },
+                //url:'https://www.baidu.com',//成功后跳转的地址
+                lastCb: function () {
+                    console.log('在弹窗之后')
+                }
+            }).enter()
+        }
 
-    function Error(){
-        $.gzMaskLayer({
-            word:"失败文字",
-            cb:function(){
-                console.log('在弹窗之前')
-            },
-            //url:'https://www.baidu.com',//成功后跳转的地址
-            lastCb:function(){
-                console.log('在弹窗之后')
-            }
-        }).error()
-    }
+        function Error() {
+            $.gzMaskLayer({
+                word: "失败文字",
+                cb: function () {
+                    console.log('在弹窗之前')
+                },
+                lastCb: function () {
+                    console.log('在弹窗之后')
+                }
+            }).error()
+        }
 
-    function Ask(){
-        $.gzMaskLayer({
-            word:"这是啥",
-            choose:true,
-            chooseCb:function(){
-                console.log('点击了确定')
-            }
-        }).ask()
-    }
+        function Ask() {
+            $.gzMaskLayer({
+                word: "这是啥",
+                choose: true,
+                chooseCb: function () {
+                    console.log('点击了确定')
+                }
+            }).ask()
+        }
+
+        function Button(){
+            $.gzMaskLayer({
+                word: "这是啥",
+                button:true
+            }).enter()
+        }
 
     </script>
 </body>
+
 </html>
