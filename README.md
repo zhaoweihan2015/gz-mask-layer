@@ -4,6 +4,7 @@
 
 # 更新日志
 
+#### 1.0.2 增加确认取消按钮选项
 #### 1.0.1 改为jquery插件，并优化内部代码，增加压缩版本 ——2018.1.26
 #### 1.0.0 上传基本代码——2018.1.23
 
@@ -15,6 +16,9 @@
 #### 3.`url` 弹窗弹出之后跳转的网页（error中没有此方法）
 #### 4.`lastCb` 在弹窗消失之后的回调函数
 #### 5.`time` 弹窗显示时间
+#### 6.`button` 是否使用按钮退出（true后取消自动消失，改为点击按钮或者点击遮罩层才消失）
+#### 7.`choose` 是否使用T/F选择按钮（同上）
+#### 8.`chooseCb` 在点击确定后的回调函数，只会在`choose`为true时有效，且与lastCb可以一起使用
 
 ### type
 #### 1. `enter()` 成功时使用的方法
@@ -25,8 +29,13 @@ $.gzMaskLayer({
             cb:function(){
                 console.log('在弹窗之前')
             },
-            //url:'https://www.baidu.com',//成功后跳转的地址
-            lastCb:function(){
+            url:'https://www.baidu.com',//成功后跳转的地址
+            button:true, // 使用一个按钮
+            choose:true, // 使用确定取消按钮
+            chooseCb:function(){
+                console.lgo('点击确定按钮后')
+            },
+            lastCb:function(){
                 console.log('在弹窗之后')
             }
         }).enter()
