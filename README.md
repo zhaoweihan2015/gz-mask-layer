@@ -23,6 +23,7 @@
 ### type
 #### 1. `enter()` 成功时使用的方法
 #### 2. `error()` 失败时使用的方法
+#### 3. `ask()`   询问时使用的方法
 ```javascript 
 $.gzMaskLayer({
             word:"成功文字",
