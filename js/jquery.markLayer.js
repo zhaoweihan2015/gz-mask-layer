@@ -42,6 +42,10 @@ $.extend({
                 $info.addClass("fa-check-circle")
             } else if (type == 'false') {
                 $info.addClass("fa-exclamation-circle")
+            } else if (type == "question") {
+                $info.addClass("fa-question-circle")                
+            } else {
+                console.log("Error! No Type")
             }
             $('body').append($tip.find('.gz-alert').append($info, $(_word)).parent().fadeIn('normal', function () {
                 var timer
@@ -86,6 +90,16 @@ $.extend({
             },
             error: function () {
                 addPreview('false', function (o) {
+                    $(this).fadeOut('normal', function () {
+                        if (o.hasOwnProperty("lastCb")) {
+                            o.lastCb()
+                        }
+                        $(this).remove()
+                    })
+                })
+            },
+            ask: function () { 
+                addPreview('question', function (o) {
                     $(this).fadeOut('normal', function () {
                         if (o.hasOwnProperty("lastCb")) {
                             o.lastCb()
