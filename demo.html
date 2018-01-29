@@ -13,6 +13,8 @@
     <button class="button" onclick="Success()">SUCCESS</button>
     <h2>失败</h2>
     <button class="button" onclick="Error()">ERROR</button>
+    <h2>提出疑问</h2>
+    <button class="button" onclick="Ask()">ASK</button>
     <script src="./js/jquery-1.9.1.min.js"></script>
     <script src="./js/jquery.markLayer.js"></script>
     <script>
@@ -25,8 +27,7 @@
             //url:'https://www.baidu.com',//成功后跳转的地址
             lastCb:function(){
                 console.log('在弹窗之后')
-            },
-            button:true
+            }
         }).enter()
     }
 
@@ -41,6 +42,16 @@
                 console.log('在弹窗之后')
             }
         }).error()
+    }
+
+    function Ask(){
+        $.gzMaskLayer({
+            word:"这是啥",
+            choose:true,
+            chooseCb:function(){
+                console.log('点击了确定')
+            }
+        }).ask()
     }
 
     </script>

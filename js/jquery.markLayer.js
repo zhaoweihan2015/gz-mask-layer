@@ -29,6 +29,13 @@ $.extend({
             _word += _button
         }
 
+        if (o.hasOwnProperty("choose") && o.choose) { 
+            var _button1 = '<button type="button" data-choose="y">确定</button>',
+                _button2 = '<button type="button">取消</button>'
+            _word += _button1
+            _word += _button2
+        }
+
         function addPreview(type, cb) {
             var $info = $('<i class="fa ' + type + '"></i>')
             if (type == 'right') {
@@ -44,10 +51,17 @@ $.extend({
                     }).bind(this), fadeTime)
                 }
 
+                if (o.hasOwnProperty("choose") && o.choose) { 
+                    clearTimeout(timer) 
+                }
+
                 $tip.on('click', function (e) {
                     var e = e || event
-                    if (o.button && !Boolean($(e.target).hasClass("gz-mark-layer") || e.target.tagName == 'BUTTON')) {
+                    if ((o.button || o.choose) && !Boolean($(e.target).hasClass("gz-mark-layer") || e.target.tagName == 'BUTTON')) {
                         return false
+                    }
+                    if ($(e.target).attr('data-choose') == 'y') {
+                        o.chooseCb()
                     }
                     clearTimeout(timer)
                     cb.call(this, o)
@@ -65,7 +79,7 @@ $.extend({
                             if (o.hasOwnProperty("lastCb")) {
                                 o.lastCb()
                             }
-                            $(this).remove()
+                            // $(this).remove()
                         })
                     }
                 })
