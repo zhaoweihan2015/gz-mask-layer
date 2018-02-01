@@ -25,23 +25,23 @@
         function Success() {
             $.gzMaskLayer({
                 word: "成功文字",
-                cb: function () {
+                beforeStart: function () {
                     console.log('在弹窗之前')
                 },
                 //url:'https://www.baidu.com',//成功后跳转的地址
-                lastCb: function () {
+                beforeEnd: function () {
                     console.log('在弹窗之后')
                 }
-            }).enter()
+            }).success()
         }
 
         function Error() {
             $.gzMaskLayer({
                 word: "失败文字",
-                cb: function () {
+                beforeStart: function () {
                     console.log('在弹窗之前')
                 },
-                lastCb: function () {
+                beforeEnd: function () {
                     console.log('在弹窗之后')
                 }
             }).error()
@@ -51,8 +51,11 @@
             $.gzMaskLayer({
                 word: "这是啥",
                 choose: true,
-                chooseCb: function () {
+                clickYes: function () {
                     console.log('点击了确定')
+                },
+                clickNo:function(){
+                    console.log('点击了取消')
                 }
             }).ask()
         }
@@ -61,7 +64,7 @@
             $.gzMaskLayer({
                 word: "这是啥",
                 button:true
-            }).enter()
+            }).success()
         }
 
     </script>

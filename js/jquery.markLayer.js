@@ -1,62 +1,72 @@
 /**
  * 显示提示信息
  * 
- * @param {any} o 
- * @param {string} o.word     提示的文字 
- * @param {function} o.time   弹窗持续时间 
- * @param {function} o.cb     在显示之前的回调函数 
- * @param {string} o.url      结束前所跳转的url 
- * @param {function} o.lastCb 结束之前的回调函数 
+ * @param {any}      o 
+ * @param {string}   o.word        提示的文字 
+ * @param {number}   o.time        弹窗持续时间 
+ * @param {function} o.beforeStart 在显示之前的回调函数 
+ * @param {string}   o.url         结束前所跳转的url 
+ * @param {boolean}  o.button      是否使用确定按钮 
+ * @param {boolean}  o.choose      是否使用确定/取消按钮 
+ * @param {function} o.clickYes    点击确定的回调函数 
+ * @param {function} o.clickNo    点击取消的回调函数 
+ * @param {function} o.beforeEnd   结束之前的回调函数 
  * @returns 
  */
 
 $.extend({
     gzMaskLayer: function gzMaskLayer(o) {
         var $tip = $('<div class="gz-mark-layer">' +
-            '<div class="gz-alert">' +
-            '</div>' +
-            '</div>'),
+                '<div class="gz-alert">' +
+                '</div>' +
+                '</div>'),
             _word = '<p>' + o.word + '</p>',
-            _button = '<button type="button">确定</button>',
+            _button,
             fadeTime = o.time ? o.time : 2000
 
-
-        if (o.hasOwnProperty("cb")) {
-            o.cb()
-        }
-
         if (o.hasOwnProperty("button") && o.button) {
+            _button = "<button type='button'>确定</button>"
             _word += _button
         }
 
-        if (o.hasOwnProperty("choose") && o.choose) { 
-            var _button1 = '<button type="button" data-choose="y">确定</button>',
-                _button2 = '<button type="button">取消</button>'
-            _word += _button1
-            _word += _button2
+        if (o.hasOwnProperty("choose") && o.choose) {
+            _button = '<button type="button" data-choose="y">确定</button>' +
+                '<button type="button" data-choose="n">取消</button>'
+            _word += _button
+        }
+        if (o.hasOwnProperty("cb")) {
+            o.beforeStart()
         }
 
-        function addPreview(type, cb) {
+        /**
+         * 添加DOM节点以及事件
+         * 
+         * @param {any} type      类型
+         * @param {any} addPrevFn 添加后的回调函数
+         */
+        function addPreview(type, addPrevFn) {
             var $info = $('<i class="fa ' + type + '"></i>')
-            if (type == 'right') {
-                $info.addClass("fa-check-circle")
-            } else if (type == 'false') {
-                $info.addClass("fa-exclamation-circle")
-            } else if (type == "question") {
-                $info.addClass("fa-question-circle")                
-            } else {
-                console.log("Error! No Type")
+            switch (type) {
+                case 'right':
+                    $info.addClass("fa-check-circle")
+                    break;
+                case 'false':
+                    $info.addClass("fa-exclamation-circle")
+                    break;
+                case 'question':
+                    $info.addClass("fa-question-circle")
+                    break;
+                default:
+                    console.log("Error! No Type")
+                    break;
             }
+
             $('body').append($tip.find('.gz-alert').append($info, $(_word)).parent().fadeIn('normal', function () {
                 var timer
-                if (!o.button) {
+                if (!o.button && !o.choose) {
                     timer = setTimeout((function () {
-                        cb.call(this, o)
+                        addPrevFn.call(this)
                     }).bind(this), fadeTime)
-                }
-
-                if (o.hasOwnProperty("choose") && o.choose) { 
-                    clearTimeout(timer) 
                 }
 
                 $tip.on('click', function (e) {
@@ -65,47 +75,48 @@ $.extend({
                         return false
                     }
                     if ($(e.target).attr('data-choose') == 'y') {
-                        o.chooseCb()
+                        o.clickYes()
+                    } else if ($(e.target).attr('data-choose') == 'n' && o.hasOwnProperty("clickNo")) {
+                        o.clickNo() 
                     }
-                    clearTimeout(timer)
-                    cb.call(this, o)
+                    addPrevFn.call(this)
                 })
             }))
         }
 
+        if (o.hasOwnProperty('form')) {
+            addFormDom()
+        }
+
+        // 消失
+        function disapper() {
+            $(this).fadeOut('normal', function () {
+                if (o.hasOwnProperty("beforeEnd")) {
+                    o.beforeEnd()
+                }
+                $(this).remove()
+            })
+        }
+
+
         return {
-            enter: function () {
-                addPreview('right', function (o) {
+            success: function () {
+                addPreview('right', function () {
                     if (o.hasOwnProperty('url')) {
                         location.href = o.url
                     } else {
-                        $(this).fadeOut('normal', function () {
-                            if (o.hasOwnProperty("lastCb")) {
-                                o.lastCb()
-                            }
-                            // $(this).remove()
-                        })
+                        disapper.call(this)
                     }
                 })
             },
             error: function () {
-                addPreview('false', function (o) {
-                    $(this).fadeOut('normal', function () {
-                        if (o.hasOwnProperty("lastCb")) {
-                            o.lastCb()
-                        }
-                        $(this).remove()
-                    })
+                addPreview('false', function () {
+                    disapper.call(this)
                 })
             },
-            ask: function () { 
-                addPreview('question', function (o) {
-                    $(this).fadeOut('normal', function () {
-                        if (o.hasOwnProperty("lastCb")) {
-                            o.lastCb()
-                        }
-                        $(this).remove()
-                    })
+            ask: function () {
+                addPreview('question', function () {
+                    disapper.call(this)
                 })
             }
         }
