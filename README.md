@@ -35,11 +35,14 @@ $.gzMaskLayer({
             url:'https://www.baidu.com',//成功后跳转的地址
             button:true, // 使用一个按钮
             choose:true, // 使用确定取消按钮
-            chooseCb:function(){
+            clickYes:function(){
                 console.lgo('点击确定按钮后')
             },
-            lastCb:function(){
+            clickNo:function(){
+                console.lgo('点击取消按钮后')
+            },
+            beforeEnd:function(){
                 console.log('在弹窗之后')
             }
-        }).enter()
+        }).success()
 ```
