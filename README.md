@@ -20,11 +20,11 @@
 #### 5.`time` 弹窗显示时间
 #### 6.`button` 是否使用按钮退出（true后取消自动消失，改为点击按钮或者点击遮罩层才消失）
 ####   `button` 参数为true（使用默认文字），或者为一个对象
-#### 6.1 `button.yes` 确定按钮文字
+####    6.1 `button.yes` 确定按钮文字
 #### 7.`choose` 是否使用T/F选择按钮（同上）
 ####   `choose` 参数为true（使用默认文字），或者一个对象
-#### 7.1 `choose.yes` 确认按钮文字
-#### 7.1 `choose.no` 取消按钮文字
+####    7.1 `choose.yes` 确认按钮文字
+####    7.1 `choose.no` 取消按钮文字
 #### 8.`clickYes` 在点击确定后的回调函数，只会在`choose`为true时有效，且与lastCb可以一起使用（如果`choose:true`,则为必須）
 #### 9.`clickNo` 在点击取消后的回调函数
 
