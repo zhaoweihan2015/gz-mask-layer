@@ -50,7 +50,10 @@
         function Ask() {
             $.gzMaskLayer({
                 word: "这是啥",
-                choose: true,
+                choose: {
+                    yes:"通　过",
+                    no:"不通过",
+                },
                 clickYes: function () {
                     console.log('点击了确定')
                 },

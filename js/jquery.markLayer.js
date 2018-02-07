@@ -1,17 +1,19 @@
 /**
  * 显示提示信息
  * 
- * @param {any}      o 
- * @param {string}   o.word        提示的文字 
- * @param {number}   o.time        弹窗持续时间 
- * @param {function} o.beforeStart 在显示之前的回调函数 
- * @param {string}   o.url         结束前所跳转的url 
- * @param {boolean}  o.button      是否使用确定按钮 
- * @param {boolean}  o.choose      是否使用确定/取消按钮 
- * @param {function} o.clickYes    点击确定的回调函数 
- * @param {function} o.clickNo    点击取消的回调函数 
- * @param {function} o.beforeEnd   结束之前的回调函数 
- * @returns 
+ * @param {any}             o 
+ * @param {string}          o.word             提示的文字 
+ * @param {number}          o.time             弹窗持续时间 
+ * @param {function}        o.beforeStart      在显示之前的回调函数 
+ * @param {string}          o.url              结束前所跳转的url 
+ * @param {boolean}         o.button           是否使用确定按钮 
+ * @param {string}          o.button.yes       确定按钮填充文字 
+ * @param {boolean/object}  o.choose           是否使用确定/取消按钮 
+ * @param {string}          o.choose.yes       确定按钮填充文字 
+ * @param {string}          o.choose.no        取消按钮填充文字 
+ * @param {function}        o.clickYes         点击确定的回调函数 
+ * @param {function}        o.clickNo          点击取消的回调函数 
+ * @param {function}        o.beforeEnd        结束之前的回调函数 
  */
 
 $.extend({
@@ -25,16 +27,28 @@ $.extend({
             fadeTime = o.time ? o.time : 2000
 
         if (o.hasOwnProperty("button") && o.button) {
-            _button = "<button type='button'>确定</button>"
+            var _yes = "确定"
+            if (o.button.hasOwnProperty('yes')) {
+                _yes = o.button.yes
+            }
+            _button = "<button type='button'>" + _yes + "</button>"
             _word += _button
         }
 
         if (o.hasOwnProperty("choose") && o.choose) {
-            _button = '<button type="button" data-choose="y">确定</button>' +
-                '<button type="button" data-choose="n">取消</button>'
+            var _yes = "确定",
+                _no = "取消"
+            if (o.choose.hasOwnProperty('yes')) {
+                _yes = o.choose.yes
+            }
+            if (o.choose.hasOwnProperty('no')) {
+                _no = o.choose.no
+            }
+            _button = '<button type="button" data-choose="y">' + _yes + '</button>' +
+                      '<button type="button" data-choose="n">' + _no + '</button>'
             _word += _button
         }
-        if (o.hasOwnProperty("cb")) {
+        if (o.hasOwnProperty("beforeStart")) {
             o.beforeStart()
         }
 
