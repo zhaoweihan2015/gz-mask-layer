@@ -63,16 +63,16 @@ $.extend({
             switch (type) {
                 case 'right':
                     $info.addClass("fa-check-circle")
-                    break;
+                    break
                 case 'false':
                     $info.addClass("fa-exclamation-circle")
-                    break;
+                    break
                 case 'question':
                     $info.addClass("fa-question-circle")
-                    break;
+                    break
                 default:
-                    console.log("Error! No Type")
-                    break;
+                    console.log("%cError! No Type",'color:red')
+                    break
             }
 
             $('body').append($tip.find('.gz-alert').append($info, $(_word)).parent().fadeIn('normal', function () {
